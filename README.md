@@ -8,7 +8,9 @@ Our final submission of the answer file is in:
 /final-submission/TAL_SAQ6K_EN_prediction.json
 ```
 
-This document is organized in the following order.
+You can submit this result directly to codebench as our result on the leaderboard
+
+This README is organized in the following order.
 
 1. Methods: The main methods used in the competition and the procedures used to obtain the final results.
 2. Final Submission: Location for submitting answer results
@@ -21,15 +23,16 @@ We have mainly used to solve the problem by using `few-shot+chain of thought(COT
 
 The specific methods and steps are as follows:
 
-### Dataset classification
+### Dataset  classification
 
-In order to better use the `Few-Shot` Learning and `Chain of Thought` methods in the following section with respect to solving math problems, this study first uses the `KMeans` clustering algorithm to classify the text of the topic
+In order to better use the `Few-Shot` Learning and `Chain of Thought` methods in the following section with respect to solving math problems, this study first uses the `KMeans` clustering algorithm to classify the text of the topic 
 
 The classified code is in`/code/classification`
 
 The main categories after classification are as follows:
 
-![image-20240111232136172](C:\Users\zhy19\AppData\Roaming\Typora\typora-user-images\image-20240111232136172.png)
+![image-20240111232136172](https://github.com/hot-zhy/mathEducatorsSolving/assets/100272100/0570ebdd-4958-41a9-a34f-e93fdaf46efd)
+
 
 ### Few-shot+Chain of thought（COT）
 
@@ -99,15 +102,37 @@ Following Methods step by step, we end up with the result:
 
 ## Final Submission
 
-In addition, we also use a certain`voting` mechanism, that is, the answers of the above methods are summarized, and the answer with the `highest` number of times is used as the final result
-
-After the above methods, we finally submitted the answer file in:
+The following document is the final outcome document:
 
 ```
 /final-submission/TAL_SAQ6K_EN_prediction.json
 ```
 
-## Setup
+You can submit this result directly to codebench as our result on the leaderboard
+
+### 我们获得这个答案的步骤为：
+
+In addition, we also use a certain`voting` mechanism, that is, the answers of the above methods are summarized, and the answer with the `highest` number of times is used as the final result
+
+So, in `final-submission`, we first got the following result file as described above:
+
+```
+/final-submission/TAL_SAQ6L_EN_prediction.jsonl
+```
+
+Then we voted on the first category of the classification and got the results:
+
+```
+cluster_1_vote.jsonl
+```
+
+We merged these two jsonl file and extracted the final numerical answer as:
+
+```
+/final-submission/TAL_SAQ6K_EN_prediction.json
+```
+
+## Setup 
 
 1. Pull the code repository
 
@@ -144,3 +169,12 @@ If you need to use another prompt, just change the corresponding imported prompt
 from cot.prompt import cluster_0_prompt
 #Then you can change the places in this file where you need to use the prompt.
 ```
+
+
+
+
+
+
+
+
+
