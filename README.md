@@ -2,6 +2,8 @@
 
 This repo provides the code, prompts, and our answers solved for the [AAAI2024 Global Competition on Math Problem Solving and Reasoning](https://ai4ed.cc/competitions/aaai2024competition)
 
+**We have participated in both Track 1 and Track 2, this document is mainly about the steps and methods used in solving the English questions of Track 2, the description of the Chinese part of Track 1 is at the bottom of this document.**
+
 Our final submission of the answer file is in:
 
 ```
@@ -31,7 +33,7 @@ The classified code is in`/code/classification`
 
 The main categories after classification are as follows:
 
-![image-20240111232136172](https://github.com/hot-zhy/mathEducatorsSolving/assets/100272100/0570ebdd-4958-41a9-a34f-e93fdaf46efd)
+![image-20240111232136172](https://github.com/hot-zhy/mathEducatorsSolving/assets/100272100/744cee19-8075-4259-9389-f14da8acf242)
 
 
 ### Few-shot+Chain of thought（COT）
@@ -170,7 +172,13 @@ from cot.prompt import cluster_0_prompt
 #Then you can change the places in this file where you need to use the prompt.
 ```
 
+## Chinese Problems Track 1
 
+For the Chinese track 1, we only used the form of few-shot+Chain of thought, and the related result files are in:
+
+```
+/code/COT/chinese-answers/submission/TAL_SAQ7K_CN_prediction.json
+```
 
 
 
