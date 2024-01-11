@@ -1,0 +1,6 @@
+Metadata-Version: 2.1
+Name: cot
+Version: 0.2
+Summary: cot
+Requires-Dist: openai
+Requires-Dist: python-dateutil
