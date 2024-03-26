@@ -3,9 +3,9 @@ import requests
 import json
 
 
-api_key = ""
-api_base = ""
 
+api_key = "sk-wzC9F9pR6895D02bd364T3BlBKFJ194A2fb2c0Fa493bADA7"
+api_base = "https://api.ohmygpt.com/v1/chat/completions"
 # GPT API
 
 
@@ -43,3 +43,11 @@ def call_chat_gpt(messages, model='gpt-4-1106-preview', stop=None, temperature=0
             else:
                 raise
     raise RuntimeError('Failed to call chat gpt')
+
+# messages = [
+#     {"role": "system", "content": "You are a helpful math word problem solver."},
+#     {"role": "user", "content": "WHAT IS 1+1?"}
+# ]
+
+
+# print(call_chat_gpt(messages))

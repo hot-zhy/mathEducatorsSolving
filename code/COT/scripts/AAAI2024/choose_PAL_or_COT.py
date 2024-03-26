@@ -22,7 +22,7 @@ args = parser.parse_args()
 
 # File paths
 DATA_PATH = args.dataset
-OUTPUT_PATH = f'../results/cluster_answers/cluster_5_PAL/cluster_5_COT_PAL_combine_choose.jsonl'
+OUTPUT_PATH = f'../../results/cluster_answers/cluster_5_PAL/cluster_5_COT_PAL_combine_choose.jsonl'
 os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
 
 # ProgramChatInterface initialization

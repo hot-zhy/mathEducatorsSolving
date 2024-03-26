@@ -7,22 +7,22 @@ import os
 from sympy import symbols
 
 from cot.core import interface
-from cot.prompt import cluster_0_prompt, cluster_13_prompt, cluster_11_prompt, cluster_9_prompt, cluster_11_3_prompt, cluster_11_2_prompt, cluster_12_prompt, plan_and_execute_prompt, resprompt
+from cot.prompt import cluster_0_prompt, cluster_13_prompt, cluster_11_prompt, cluster_9_prompt, cluster_11_3_prompt, cluster_11_2_prompt, cluster_12_prompt, plan_and_execute_prompt
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--append', action='store_true')
 parser.add_argument('--verbose', action='store_true')
 parser.add_argument(
-    '--dataset', default='../res-prompt-answers/output_file_1.jsonl', type=str)
+    '--dataset', default='../results/cluster_answers/cluster_12_COT_PAL/cluster_12_COT_PAL.jsonl', type=str)
 parser.add_argument('--model', default='gpt-4-1106-preview', type=str)
 parser.add_argument('--temperature', default=0.0, type=float)
 parser.add_argument('--top_p', default=1.0, type=float)
 parser.add_argument('--max_tokens', default=2096, type=int)
 args = parser.parse_args()
 
-DATA_PATH = f'../res-prompt-answers/output_file_1.jsonl'
-OUTPUT_PATH = f'../res-prompt-answers/1.jsonl'
+DATA_PATH = f'../../results/cluster_answers/cluster_12_COT_PAL/cluster_12_COT_PAL.jsonl'
+OUTPUT_PATH = f'../../results/cluster_answers/cluster_12_COT_PAL/cluster_12_COT_PAL_plan.jsonl'
 os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
 
 examples = list(map(json.loads, open(DATA_PATH, encoding='utf-8')))
@@ -31,7 +31,7 @@ itf = interface.ProgramChatInterface(
     stop=None,
     model=args.model,
     verbose=args.verbose,
-    system_message=resprompt.MATH_CHAT_BETA_SYSTEM_MESSAGE,
+    system_message=plan_and_execute_prompt.MATH_CHAT_BETA_SYSTEM_MESSAGE,
 )
 
 
@@ -53,8 +53,8 @@ with open(OUTPUT_PATH, 'a', encoding='utf-8') as f:
         result = copy.copy(x)
         try:
             ans = itf.generate(
-                resprompt.MATH_CHAT_BETA_SYSTEM_MESSAGE +
-                resprompt.MATH_CHAT_BETA_PROMPT+question,
+                plan_and_execute_prompt.MATH_CHAT_BETA_SYSTEM_MESSAGE +
+                plan_and_execute_prompt.MATH_CHAT_BETA_PROMPT+question,
                 temperature=args.temperature,
                 top_p=args.top_p,
                 max_tokens=args.max_tokens

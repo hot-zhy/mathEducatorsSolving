@@ -1,0 +1,3 @@
+Total questions: 378
+Correct answers: 360
+Accuracy rate: 95.24%

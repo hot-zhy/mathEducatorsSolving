@@ -7,37 +7,25 @@ import os
 from sympy import symbols
 
 from cot.core import interface
-from cot.prompt import cluster_0_prompt, cluster_13_prompt, cluster_11_prompt, cluster_9_prompt, cluster_11_3_prompt, cluster_11_2_prompt, cluster_12_prompt, resprompt
+from cot.prompt import cluster_0_prompt, cluster_13_prompt, cluster_11_prompt, cluster_9_prompt, cluster_11_3_prompt, cluster_11_2_prompt, cluster_12_prompt, plan_and_execute_prompt, resprompt
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--append', action='store_true')
 parser.add_argument('--verbose', action='store_true')
 parser.add_argument(
-    '--dataset', default='../results/cluster_answers/cluster_0_PAL/different_0_COT_PAL/different_0_COT_PAL_answers.jsonl', type=str)
+    '--dataset', default='../res-prompt-answers/output_file_1.jsonl', type=str)
 parser.add_argument('--model', default='gpt-4-1106-preview', type=str)
 parser.add_argument('--temperature', default=0.0, type=float)
 parser.add_argument('--top_p', default=1.0, type=float)
 parser.add_argument('--max_tokens', default=2096, type=int)
 args = parser.parse_args()
 
-DATA_PATH = f'../results/cluster_answers/cluster_0_PAL/different_0_COT_PAL/different_0_COT_PAL_answers.jsonl'
-OUTPUT_PATH = f'../results/cluster_answers/cluster_0_PAL/different_0_COT_PAL/different_0_COT_PAL_answers_resprompt.jsonl'
+DATA_PATH = f'../../res-prompt-answers/output_file_1.jsonl'
+OUTPUT_PATH = f'../../res-prompt-answers/1.jsonl'
 os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
 
-examples = []
-with open(DATA_PATH, encoding='utf-8') as file:
-    for line in file:
-        try:
-            # 替换换行符和制表符，然后尝试解析 JSON
-            processed_line = line.replace('\n', '').replace('\t', '\\t')
-            json_obj = json.loads(processed_line)
-            examples.append(json_obj)
-        except json.JSONDecodeError:
-            # 如果遇到解析错误，跳过这一行
-            print(f"Skipping invalid JSON line: {line.strip()}")
-            continue
-
+examples = list(map(json.loads, open(DATA_PATH, encoding='utf-8')))
 
 itf = interface.ProgramChatInterface(
     stop=None,
