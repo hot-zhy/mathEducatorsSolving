@@ -540,7 +540,7 @@
   },
   "75": {
     "problem": "Let y = f(x) be a solution of the differential equation x dy + (y - xe^x) dx = 0 such that y = 0 when x = 1. What is the value of f(2)?",
-    "answer": "C",
+    "answer": "?",
     "options": ["1/(2e)", "1/e", "e^2/2", "2e"],
     "standard-answer": "C"
   },

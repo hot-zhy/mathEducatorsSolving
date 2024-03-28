@@ -1,3 +1,3 @@
 Total questions: 100
-Correct answers: 79
-Accuracy rate: 79.00%
+Correct answers: 78
+Accuracy rate: 78.00%

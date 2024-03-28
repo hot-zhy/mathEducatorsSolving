@@ -1,20 +1,32 @@
 import json
+from typing import List
 
-def validate_answers_and_save_results(json_file_path, results_file_path):
+def validate_answers_and_save_results(json_file_paths: List[str], results_file_path: str):
+    total_count = 0
+    correct_count = 0
+
+    # Process each JSON file
+    for json_file_path in json_file_paths:
+        try:
+            with open(json_file_path, 'r', encoding='utf-8') as file:
+                data = json.load(file)
+
+            for item in data.values():
+                total_count += 1
+                if item["answer"] == item["standard-answer"]:
+                    correct_count += 1
+
+        except json.JSONDecodeError as e:
+            print(f"Error parsing JSON in {json_file_path}: {e}")
+        except FileNotFoundError:
+            print(f"File {json_file_path} not found.")
+        except Exception as e:
+            print(f"An unexpected error occurred in {json_file_path}: {e}")
+
+    correct_rate = correct_count / total_count * 100 if total_count > 0 else 0
+
+    # Write aggregated results to the results file
     try:
-        with open(json_file_path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
-
-        total_count = 0
-        correct_count = 0
-
-        for item in data.values():
-            total_count += 1
-            if item["answer"] == item["standard-answer"]:
-                correct_count += 1
-
-        correct_rate = correct_count / total_count * 100
-
         with open(results_file_path, 'w', encoding='utf-8') as results_file:
             results_file.write(f"Total questions: {total_count}\n")
             results_file.write(f"Correct answers: {correct_count}\n")
@@ -22,15 +34,15 @@ def validate_answers_and_save_results(json_file_path, results_file_path):
 
         print(f"Results have been saved to {results_file_path}")
 
-    except json.JSONDecodeError as e:
-        print(f"Error parsing JSON: {e}")
-    except FileNotFoundError:
-        print(f"File {json_file_path} not found.")
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        print(f"An unexpected error occurred while writing results: {e}")
 
-# Replace 'data.json' with the path to your actual JSON file
-json_file_path = './calculate_accuracy/high_school_mathematics_test.json'
+# List of JSON file paths
+json_file_paths = [
+    './calculate_accuracy/high/high_0.json',
+    './calculate_accuracy/high/high_1.json',
+    './calculate_accuracy/high/high_2.json'
+]
 # Specify the path for the results file
-results_file_path = './calculate_accuracy/high_school.txt'
-validate_answers_and_save_results(json_file_path, results_file_path)
+results_file_path = './calculate_accuracy/high/high_few_shot.txt'
+validate_answers_and_save_results(json_file_paths, results_file_path)

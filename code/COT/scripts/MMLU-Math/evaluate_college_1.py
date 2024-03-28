@@ -7,14 +7,14 @@ import os
 from sympy import symbols
 
 from cot.core import interface
-from cot.prompt import MMLU_math_prompt,high_0_prompt
+from cot.prompt import MMLU_math_prompt,high_1_prompt,college_1_prompt
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--append', action='store_true')
 parser.add_argument('--verbose', action='store_true')
 parser.add_argument(
-    '--dataset', default='../../../../code/classification/MMLU-Math/high/high_0.jsonl', type=str)
+    '--dataset', default='../../../../code/classification/MMLU-Math/college/college_1.jsonl', type=str)
 parser.add_argument('--model', default='gpt-4-1106-preview', type=str)
 parser.add_argument('--temperature', default=0.0, type=float)
 parser.add_argument('--top_p', default=1.0, type=float)
@@ -22,7 +22,7 @@ parser.add_argument('--max_tokens', default=2096, type=int)
 args = parser.parse_args()
 
 DATA_PATH = args.dataset
-OUTPUT_PATH = f'./results/few-shot/high/high_0_answers.jsonl'
+OUTPUT_PATH = f'./results/few-shot/college/college_1_answers.jsonl'
 os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
 
 examples = list(map(json.loads, open(DATA_PATH, encoding='utf-8')))
@@ -31,7 +31,7 @@ itf = interface.ProgramChatInterface(
     stop=None,
     model=args.model,
     verbose=args.verbose,
-    system_message=high_0_prompt.META_PROMPT,
+    system_message=college_1_prompt.META_PROMPT,
 )
 
 
@@ -53,8 +53,8 @@ with open(OUTPUT_PATH, 'a', encoding='utf-8') as f:
         result = copy.copy(x)
         try:
             ans = itf.generate(
-                high_0_prompt.SPECIFIC_METHOD +
-                high_0_prompt.EXEMPLARS+high_0_prompt.FORMAT_REQUIREMENT+question,
+                college_1_prompt.SPECIFIC_METHOD +
+                college_1_prompt.EXEMPLARS+college_1_prompt.FORMAT_REQUIREMENT+question,
                 temperature=args.temperature,
                 top_p=args.top_p,
                 max_tokens=args.max_tokens

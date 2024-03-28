@@ -40,6 +40,6 @@ def convert_jsonl_to_json(jsonl_file_path, json_file_path):
         json.dump(result, file, indent=4, ensure_ascii=False)
 
 
-
-convert_jsonl_to_json(
-    '../results/results_gpt-4-1106-preview/high_school_mathematics_test.jsonl', f'./calculate_accuracy/high_school_mathematics_test.json')
+for i in range(3):
+    convert_jsonl_to_json(
+    f'../results/few-shot/high/high_{i}_answers.jsonl', f'./calculate_accuracy/high/high_{i}.json')
